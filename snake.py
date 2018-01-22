@@ -18,6 +18,7 @@ rect_points = [(10, 30), (790, 30), (790, 590), (10, 590)]
 
 def init_snake():
     snake.draw_snake()
+    pygame.display.update()
 
 
 def move_snake(keys):
