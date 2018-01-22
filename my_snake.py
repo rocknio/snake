@@ -4,7 +4,8 @@ import pygame
 # from pygame.locals import *
 
 
-const_scale = 10
+const_scale = 15
+food_scale = 18
 
 
 class MySnake(object):
@@ -19,7 +20,7 @@ class MySnake(object):
 
         self.img_food = pygame.image.load(img_food)
         w, h = self.img_food.get_size()
-        self.img_food = pygame.transform.smoothscale(self.img_food, (w // 12, h // 12))
+        self.img_food = pygame.transform.smoothscale(self.img_food, (w // food_scale, h // food_scale))
 
         self.snake = []
         for i in range(snake_len):
@@ -27,8 +28,6 @@ class MySnake(object):
 
         self.direction = direction
         self.screen = screen
-
-        self.vel = 1.1
 
         self.food_position = None
         self.generate_food()
