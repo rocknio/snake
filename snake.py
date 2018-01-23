@@ -120,6 +120,8 @@ def run_snake():
                 game_over = False
                 global snake
                 snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
+                game_level = 1
+                game_score = 0
 
             continue
 
