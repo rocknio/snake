@@ -33,7 +33,7 @@ class MySnake(object):
         self.generate_food()
 
     def generate_food(self):
-        self.food_position = random.randint(10, 780) // 10 * 10, random.randint(30, 580) // 10 * 10
+        self.food_position = random.randint(20, 770) // 10 * 10, random.randint(40, 570) // 10 * 10
 
     def move(self, direction):
         # 根据按键移动方向，与snake当前移动方向比较，如果方向相逆，则忽略本次按键方向，继续按当前方向行进
@@ -78,12 +78,12 @@ class MySnake(object):
         self.snake[0]["y"] = head_position[1]
 
     def enhance_snake_body(self):
-        for _ in self.snake[:0:-1]:
-            self.snake.append({"x": self.snake[:-1]["x"] + self.img_snake_body_w, "y": self.snake[:-1]["y"]})
+        self.snake.append({"x": self.food_position[0], "y": self.food_position[1]})
 
     def draw_snake(self):
         # 绘制food
-        self.screen.blit(self.img_food, (self.food_position[0], self.food_position[1]))
+        if self.food_position != (None, None):
+            self.screen.blit(self.img_food, (self.food_position[0], self.food_position[1]))
 
         # 在屏幕上绘制整个snake
         for snake_body in self.snake:
@@ -104,3 +104,11 @@ class MySnake(object):
             return True
 
         return False
+
+    def check_snake_food(self):
+        if self.snake[0]["x"] == self.food_position[0] and self.snake[0]["y"] == self.food_position[1]:
+            self.generate_food()
+            self.enhance_snake_body()
+            return True
+        else:
+            return False

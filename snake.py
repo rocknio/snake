@@ -7,12 +7,13 @@ from my_snake import MySnake
 pygame.init()
 screen = pygame.display.set_mode((800, 600), 0, 32)
 pygame.display.set_caption("snake")
-snake = MySnake(400, 300, 4, screen, "snake.png", "food.png")
+snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
 font = pygame.font.Font(None, 26)
 font1 = pygame.font.Font(None, 40)
 
 game_over = False
-
+game_score = 0
+game_level = 1
 rect_points = [(10, 30), (790, 30), (790, 590), (10, 590)]
 
 
@@ -42,7 +43,7 @@ def draw_infos(score, time_last):
     img_text = font.render("Score: {}".format(score), True, (0, 0, 0))
     screen.blit(img_text, (10, 10))
 
-    img_text = font.render("Time: {}".format(time_last), True, (0, 0, 0))
+    img_text = font.render("Level: {}".format(time_last), True, (0, 0, 0))
     screen.blit(img_text, (410, 10))
 
 
@@ -54,7 +55,7 @@ def refresh_surface():
     pygame.draw.lines(screen, (0, 0, 0), True, rect_points, 3)
 
     # 添加分数，时间
-    draw_infos(0, 0)
+    draw_infos(game_score, game_level)
 
     # 画snake
     snake.draw_snake()
@@ -64,9 +65,36 @@ def check_collide():
     return snake.check_collide_boundary() or snake.check_collide_snake()
 
 
+def check_snake_food():
+    return snake.check_snake_food()
+
+
+def upgrade_game_level():
+    global game_level
+    if game_score < 100:
+        game_level = 1
+    elif game_score < 200:
+        game_level = 2
+    elif game_score < 300:
+        game_level = 3
+    elif game_score < 400:
+        game_level = 4
+    elif game_score < 500:
+        game_level = 5
+    elif game_score < 600:
+        game_level = 6
+    elif game_score < 700:
+        game_level = 7
+    elif game_score < 800:
+        game_level = 8
+    else:
+        game_level = 9
+
+
 def run_snake():
     while True:
-        timer.tick(10)
+        global game_level
+        timer.tick(game_level * 5)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -91,12 +119,20 @@ def run_snake():
             if keys[K_SPACE]:
                 game_over = False
                 global snake
-                snake = MySnake(400, 300, 4, screen, "snake.png", "food.png")
+                snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
 
             continue
 
         # 计算snake下一步移动方向
         move_snake(keys)
+
+        # 判断吃到food
+        if check_snake_food():
+            global game_score
+            game_score += 10
+
+        # 速度升级
+        upgrade_game_level()
 
         # 重绘图
         refresh_surface()
