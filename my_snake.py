@@ -4,8 +4,8 @@ import pygame
 # from pygame.locals import *
 
 
-const_scale = 15
-food_scale = 18
+const_scale = 29
+food_scale = 29
 
 
 class MySnake(object):
@@ -33,7 +33,7 @@ class MySnake(object):
         self.generate_food()
 
     def generate_food(self):
-        self.food_position = random.randint(10, 780) * 10 // 10, random.randint(30, 580) * 10 // 10
+        self.food_position = random.randint(10, 780) // 10 * 10, random.randint(30, 580) // 10 * 10
 
     def move(self, direction):
         # 根据按键移动方向，与snake当前移动方向比较，如果方向相逆，则忽略本次按键方向，继续按当前方向行进
@@ -97,10 +97,10 @@ class MySnake(object):
         return False
 
     def check_collide_boundary(self):
-        if self.snake[0]["x"] < 40 or self.snake[0]["x"] > 750:
+        if self.snake[0]["x"] < 30 or self.snake[0]["x"] > 760:
             return True
 
-        if self.snake[0]["y"] < 50 or self.snake[0]["y"] > 550:
+        if self.snake[0]["y"] < 50 or self.snake[0]["y"] > 560:
             return True
 
         return False

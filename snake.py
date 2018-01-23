@@ -7,7 +7,7 @@ from my_snake import MySnake
 pygame.init()
 screen = pygame.display.set_mode((800, 600), 0, 32)
 pygame.display.set_caption("snake")
-snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
+snake = MySnake(400, 300, 4, screen, "snake.png", "food.png")
 font = pygame.font.Font(None, 26)
 font1 = pygame.font.Font(None, 40)
 
@@ -66,7 +66,7 @@ def check_collide():
 
 def run_snake():
     while True:
-        timer.tick(5)
+        timer.tick(10)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -91,7 +91,7 @@ def run_snake():
             if keys[K_SPACE]:
                 game_over = False
                 global snake
-                snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
+                snake = MySnake(400, 300, 4, screen, "snake.png", "food.png")
 
             continue
 
