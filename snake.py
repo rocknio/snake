@@ -84,7 +84,7 @@ def run_snake():
             game_over = check_collide()
         else:
             img_text = font1.render("Press Space To Restart Game!", True, (0, 0, 0))
-            screen.blit(img_text, (300, 300))
+            screen.blit(img_text, (200, 200))
             pygame.display.update()
 
             # 如果game over状态下，按enter，重启游戏
