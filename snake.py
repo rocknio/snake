@@ -1,4 +1,3 @@
-import os
 import pygame
 import sys
 from pygame.locals import *
@@ -9,8 +8,8 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600), 0, 32)
 pygame.display.set_caption("snake")
 snake = MySnake(400, 300, 4, screen, "snake.png", "snake.png")
-font = pygame.font.Font(None, 26)
-font1 = pygame.font.Font(None, 40)
+font = pygame.font.Font("simhei.ttf", 18)
+font1 = pygame.font.Font("simhei.ttf", 30)
 
 game_over = False
 game_score = 0
