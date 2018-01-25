@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 from pygame.locals import *
@@ -135,9 +136,8 @@ def run_snake():
         # 判断吃到food
         if check_snake_food():
             game_score += 10
-
-        # 速度升级
-        upgrade_game_level()
+            # 速度升级
+            upgrade_game_level()
 
         # 重绘图
         refresh_surface()
