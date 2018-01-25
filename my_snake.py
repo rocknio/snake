@@ -66,7 +66,13 @@ class MySnake(object):
             self.direction = direction
             head_position = self.snake[0]["x"], self.snake[0]["y"] - self.img_snake_body_h
         else:
-            return
+            return False
+
+        if head_position[0] < 10 or head_position[0] > 780:
+            return True
+
+        if head_position[1] < 30 or head_position[1] > 580:
+            return True
 
         # 逆序遍历snake每一节数据，后一节body的下一个位置就是上一节body的当前位置，遍历到snake head
         for snake_body_idx in range(len(self.snake) - 1, 0, -1):
@@ -76,6 +82,8 @@ class MySnake(object):
         # 设置snake head位置
         self.snake[0]["x"] = head_position[0]
         self.snake[0]["y"] = head_position[1]
+
+        return False
 
     def enhance_snake_body(self):
         self.snake.append({"x": self.food_position[0], "y": self.food_position[1]})
@@ -97,10 +105,10 @@ class MySnake(object):
         return False
 
     def check_collide_boundary(self):
-        if self.snake[0]["x"] < 30 or self.snake[0]["x"] > 760:
+        if self.snake[0]["x"] < 20 or self.snake[0]["x"] > 780:
             return True
 
-        if self.snake[0]["y"] < 50 or self.snake[0]["y"] > 560:
+        if self.snake[0]["y"] < 30 or self.snake[0]["y"] > 580:
             return True
 
         return False

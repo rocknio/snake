@@ -36,7 +36,7 @@ def move_snake(keys):
         direction = "right"
 
     if direction:
-        snake.move(direction)
+        return snake.move(direction)
 
 
 def draw_infos(score, time_last):
@@ -45,6 +45,9 @@ def draw_infos(score, time_last):
 
     img_text = font.render("Level: {}".format(time_last), True, (0, 0, 0))
     screen.blit(img_text, (410, 10))
+
+    img_text = font.render("x = {}, y = {}".format(snake.snake[0]["x"], snake.snake[0]["y"]), True, (0, 0, 0))
+    screen.blit(img_text, (610, 10))
 
 
 def refresh_surface():
@@ -62,7 +65,7 @@ def refresh_surface():
 
 
 def check_collide():
-    return snake.check_collide_boundary() or snake.check_collide_snake()
+    return snake.check_collide_snake()
 
 
 def check_snake_food():
@@ -93,7 +96,7 @@ def upgrade_game_level():
 
 def run_snake():
     while True:
-        global game_level
+        global game_level, game_score, game_over
         timer.tick(game_level * 5)
 
         for event in pygame.event.get():
@@ -106,13 +109,16 @@ def run_snake():
             pygame.quit()
             sys.exit(0)
 
+        # 计算snake下一步移动方向
+        game_over = move_snake(keys)
+
         # 如果游戏结束，提示重启
-        global game_over
         if game_over is not True:
             game_over = check_collide()
         else:
             img_text = font1.render("Press Space To Restart Game!", True, (0, 0, 0))
             screen.blit(img_text, (200, 200))
+            draw_infos(game_score, game_level)
             pygame.display.update()
 
             # 如果game over状态下，按enter，重启游戏
@@ -125,12 +131,8 @@ def run_snake():
 
             continue
 
-        # 计算snake下一步移动方向
-        move_snake(keys)
-
         # 判断吃到food
         if check_snake_food():
-            global game_score
             game_score += 10
 
         # 速度升级
