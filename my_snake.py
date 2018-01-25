@@ -33,7 +33,14 @@ class MySnake(object):
         self.generate_food()
 
     def generate_food(self):
-        self.food_position = random.randint(20, 770) // 10 * 10, random.randint(40, 570) // 10 * 10
+        collide = True
+        while collide:
+            self.food_position = random.randint(20, 770) // 10 * 10, random.randint(40, 570) // 10 * 10
+            for one_snake_body in self.snake:
+                if self.food_position[0] == one_snake_body["x"] and self.food_position[1] == one_snake_body["y"]:
+                    collide = True
+                else:
+                    collide = False
 
     def move(self, direction):
         # 根据按键移动方向，与snake当前移动方向比较，如果方向相逆，则忽略本次按键方向，继续按当前方向行进
