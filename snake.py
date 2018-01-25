@@ -97,7 +97,7 @@ def upgrade_game_level():
 def run_snake():
     while True:
         global game_level, game_score, game_over
-        timer.tick(game_level * 5)
+        timer.tick(game_level * 3)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -110,7 +110,8 @@ def run_snake():
             sys.exit(0)
 
         # 计算snake下一步移动方向
-        game_over = move_snake(keys)
+        if game_over is not True:
+            game_over = move_snake(keys)
 
         # 如果游戏结束，提示重启
         if game_over is not True:
